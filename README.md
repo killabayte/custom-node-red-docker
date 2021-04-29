@@ -73,13 +73,13 @@ The relevant `Dockerfile` can be modified as required.
 To do that you will need to install a certificate and key on your node-red server.
 In this tutorial we will be using a self signed certificate which we will create ourselves using openssl.
 
-1.Create a private key
+- Create a private key
 
 ```shell script
 openssl genrsa -out node-key.pem 2048
 ```
 
-2. Create a certificate Request
+- Create a certificate Request
 
 ```shell script
 openssl req -new -sha256 -key node-key.pem -out node-csr.pem
@@ -88,7 +88,7 @@ openssl req -new -sha256 -key node-key.pem -out node-csr.pem
 You will need to fill out a form the most important entry is near the end and is the common name field.
 This should be the FQDN of the server hosting nod-red or the IP address. I used *.nodered.test
 
-3. Sign the Certificate with the Private key to create a self signed Certificate
+- Sign the Certificate with the Private key to create a self signed Certificate
 
 ```shell script
 openssl x509 -req -in node-csr.pem -signkey node-key.pem -out node-cert.pem
