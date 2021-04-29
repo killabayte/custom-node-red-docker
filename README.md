@@ -99,7 +99,7 @@ openssl x509 -req -in node-csr.pem -signkey node-key.pem -out node-cert.pem
 To access your server this time  you have to go to https://127.0.0.1:1880
 
 At some point, you will get annoyed by the prompt, so if you spend a few more minutes, you can add the SSL certificate to your browser.
-Open the certification.pem file and copy the content to a text file on your computer. Save it using the same name. Then:
+Open the node-cert.pem file and copy the content to a text file on your computer. Save it using the same name. Then:
 
 - Open Chrome settings page chrome://settings
 - Search for “certificates” 
