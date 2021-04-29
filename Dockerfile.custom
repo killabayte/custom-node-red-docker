@@ -34,6 +34,7 @@ WORKDIR /usr/src/node-red
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json .
 COPY flows.json /data
+COPY settings.js /data
 
 #### Stage BUILD #######################################################################################################
 FROM base AS build
@@ -51,6 +52,7 @@ ARG BUILD_VERSION
 ARG BUILD_REF
 ARG NODE_RED_VERSION
 ARG ARCH
+ARG NODE_RED_CREDENTIAL_SECRET
 ARG TAG_SUFFIX=default
 
 LABEL org.label-schema.build-date=${BUILD_DATE} \
@@ -63,7 +65,7 @@ LABEL org.label-schema.build-date=${BUILD_DATE} \
     org.label-schema.vcs-ref=${BUILD_REF} \
     org.label-schema.vcs-type="Git" \
     org.label-schema.vcs-url="https://github.com/node-red/node-red-docker" \
-    org.label-schema.arch=${ARCH} \
+    org.label-schema.arch=${ARCH} 
 
 COPY --from=build /usr/src/node-red/prod_node_modules ./node_modules
 
@@ -77,7 +79,8 @@ USER node-red
 # Env variables
 ENV NODE_RED_VERSION=$NODE_RED_VERSION \
     NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules \
-    FLOWS=flows.json
+    FLOWS=flows.json \
+    NODE_RED_CREDENTIAL_SECRET=${NODE_RED_CREDENTIAL_SECRET}
 
 # ENV NODE_RED_ENABLE_SAFE_MODE=true    # Uncomment to enable safe start mode (flows not running)
 # ENV NODE_RED_ENABLE_PROJECTS=true     # Uncomment to enable projects option
