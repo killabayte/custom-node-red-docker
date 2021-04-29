@@ -27,6 +27,8 @@ cd custom-node-red-docker
 
 ## 3. **docker-alpine.sh**
 
+!Before run docker-alpine.sh make sure you have generated certificates how it described [in Security section](#6-securing-your-node-red-instance)
+
 The `docker-alpine.sh` is helper scripts to build a custom Node-RED docker image. The docker-alpine script is based on Alpine as per the default docker package.
 
 Change the build arguments as needed:
