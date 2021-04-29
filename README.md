@@ -4,7 +4,7 @@ This directory contains files you need to build your own images.
 
 The follow steps describe in short which steps to take to build your own images.
 
-## 1. git clone
+## 0. git clone
 
 Clone the Node-RED Docker project from github
 ```shell script
