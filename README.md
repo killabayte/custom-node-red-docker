@@ -1,6 +1,6 @@
 # Build your own Docker image
 
-The docker-custom directory contains files you need to build your own images.
+This directory contains files you need to build your own images.
 
 The follow steps describe in short which steps to take to build your own images.
 
