@@ -58,7 +58,7 @@ When building is done you can run the custom image by the following command:
 $ docker run -it -p 1880:1880 -e "NODE_RED_CREDENTIAL_SECRET=YOUR_BCRYPT_HASH" --name myNRtest pilot:node-red-build
 ```
 
-*!BCrypt hash can be genereted via (online generator)[https://passwordhashing.com/BCrypt]*
+*!BCrypt hash can be genereted via [online generator](https://passwordhashing.com/BCrypt)*
 
 **Please note in setting.js enabled Admin auth and password must be provided as a dynamic variable, for more details please see [official documentation](https://nodered.org/docs/getting-started/docker#credentials-secrets-and-environment-variables)**
 
