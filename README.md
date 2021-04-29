@@ -18,7 +18,7 @@ cd custom-node-red-docker
 
 ## 1. **package.json**
 
-   - Change the node-red version in package.json (from the docker-custom directory) to the version you require
+   - Change the node-red version in package.json (from this directory) to the version you require
    - Add optionally packages you require
 
 ## 2. **flows.json**
@@ -58,7 +58,7 @@ When building is done you can run the custom image by the following command:
 $ docker run -it -p 1880:1880 -e "NODE_RED_CREDENTIAL_SECRET=YOUR_BCRYPT_HASH" -v node_red_data:/data --name myNRtest pilot:node-red-build
 ```
 
-Please note in setting.js enabled Admin auth and password must be provided as a dynamic variable, for more details please see [official documentation](https://nodered.org/docs/getting-started/docker#credentials-secrets-and-environment-variables)
+**Please note in setting.js enabled Admin auth and password must be provided as a dynamic variable, for more details please see [official documentation](https://nodered.org/docs/getting-started/docker#credentials-secrets-and-environment-variables)**
 
 With the following command you can verify your docker image:
 
@@ -72,8 +72,8 @@ The relevant `Dockerfile` can be modified as required.
 
 ## 6. **Securing your node red instance**
 
-To do that you will need to install a certificate and key on your node-red server.
-In this tutorial we will be using a self signed certificate which we will create ourselves using openssl.
+To do that you will need to install a certificate and key on your node-red server. Or create them in this directory, the rest things will do docker build.
+In this tutorial, we will be using a self-signed certificate which we will create ourselves using OpenSSL.
 
 - Create a private key
 
@@ -101,7 +101,8 @@ To access your server this time  you have to go to https://127.0.0.1:1880
 At some point, you will get annoyed by the prompt, so if you spend a few more minutes, you can add the SSL certificate to your browser.
 Open the certification.pem file and copy the content to a text file on your computer. Save it using the same name. Then:
 
-Open Chrome settings page chrome://settings
-Search for “certificates” and add newly created node-cert.pem to trusted certificates
+- Open Chrome settings page chrome://settings
+- Search for “certificates” 
+- and add newly created node-cert.pem to trusted certificates
 
 You are ready to roll a new server with the SSL certificate to NodeRED
