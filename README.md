@@ -113,7 +113,7 @@ You are ready to roll a new server with the SSL certificate to NodeRED
 
 - The "flow_example.json" can be used as a basic JSON file that contains pre-configured flow for the project
 
-shell```
+```shell script
 $ docker run -it -p 1880:1880 -e "FLOWS=flow_example.json" -e "NODE_RED_CREDENTIAL_SECRET=YOUR_BCRYPT_HASH" --name myNRtest pilot:node-red-build
 ```
 
