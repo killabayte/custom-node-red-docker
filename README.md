@@ -118,3 +118,5 @@ $ docker run -it -p 1880:1880 -e "FLOWS=flow_example.json" -e "NODE_RED_CREDENTI
 ```
 
 As the result, the node-red dashboard will start with the customized flow which is described in flow_example.json 
+
+test
