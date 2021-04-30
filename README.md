@@ -108,3 +108,13 @@ Open the node-cert.pem file and copy the content to a text file on your computer
 - and add newly created node-cert.pem to trusted certificates
 
 You are ready to roll a new server with the SSL certificate to NodeRED
+
+## 7. **Customized flow**
+
+- The "flow_example.json" can be used as a basic JSON file that contains pre-configured flow for the project
+
+shell```
+$ docker run -it -p 1880:1880 -e "FLOWS=flow_example.json" -e "NODE_RED_CREDENTIAL_SECRET=YOUR_BCRYPT_HASH" --name myNRtest pilot:node-red-build
+```
+
+As the result, the node-red dashboard will start with the customized flow which is described in flow_example.json 

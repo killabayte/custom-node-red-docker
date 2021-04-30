@@ -1,2 +1,4 @@
 /node-red-docker.iml
 /.idea/
+node-cert.pem
+node-key.pem
