@@ -1,0 +1,330 @@
+[
+  {
+    "id": "d51fa3e2.499938",
+    "type": "tab",
+    "label": "Flow example",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "2a2f6621.d85b52",
+    "type": "inject",
+    "z": "d51fa3e2.499938",
+    "name": "Send mocked data",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 130,
+    "y": 300,
+    "wires": [
+      [
+        "4bc86c77.214f84"
+      ]
+    ]
+  },
+  {
+    "id": "4bc86c77.214f84",
+    "type": "http request",
+    "z": "d51fa3e2.499938",
+    "name": "HTTP Request",
+    "method": "GET",
+    "ret": "txt",
+    "paytoqs": "ignore",
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.csv",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 340,
+    "y": 300,
+    "wires": [
+      [
+        "f0e6ae09.cd8ca"
+      ]
+    ]
+  },
+  {
+    "id": "f0e6ae09.cd8ca",
+    "type": "csv",
+    "z": "d51fa3e2.499938",
+    "name": "Parse CSV",
+    "sep": ",",
+    "hdrin": true,
+    "hdrout": "none",
+    "multi": "mult",
+    "ret": "\\n",
+    "temp": "",
+    "skip": "0",
+    "strings": true,
+    "include_empty_strings": "",
+    "include_null_values": "",
+    "x": 530,
+    "y": 300,
+    "wires": [
+      [
+        "22039dc6.137442",
+        "8ddbf623.bffb78",
+        "1686aa4a.816a2e"
+      ]
+    ]
+  },
+  {
+    "id": "becbfebc.b3cec8",
+    "type": "debug",
+    "z": "d51fa3e2.499938",
+    "name": "Log msg.payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1170,
+    "y": 380,
+    "wires": []
+  },
+  {
+    "id": "22039dc6.137442",
+    "type": "switch",
+    "z": "d51fa3e2.499938",
+    "name": "Conditional fork",
+    "property": "payload.mag",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "gte",
+        "v": "7",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 720,
+    "y": 380,
+    "wires": [
+      [
+        "2dacdb70.1f5514"
+      ]
+    ]
+  },
+  {
+    "id": "2dacdb70.1f5514",
+    "type": "change",
+    "z": "d51fa3e2.499938",
+    "name": "Change msg.payload",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "PANIC!",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 940,
+    "y": 380,
+    "wires": [
+      [
+        "becbfebc.b3cec8"
+      ]
+    ]
+  },
+  {
+    "id": "8ddbf623.bffb78",
+    "type": "debug",
+    "z": "d51fa3e2.499938",
+    "name": "Log msg.payload",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "payload",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 730,
+    "y": 220,
+    "wires": []
+  },
+  {
+    "id": "7d89643f.f46584",
+    "type": "http in",
+    "z": "d51fa3e2.499938",
+    "name": "",
+    "url": "/test",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 100,
+    "y": 440,
+    "wires": [
+      [
+        "6d5eaa6.19d8554"
+      ]
+    ]
+  },
+  {
+    "id": "ef501117.dcfd48",
+    "type": "http response",
+    "z": "d51fa3e2.499938",
+    "name": "HTTP response",
+    "statusCode": "",
+    "headers": {
+      "content-type": "application/json"
+    },
+    "x": 820,
+    "y": 500,
+    "wires": []
+  },
+  {
+    "id": "1686aa4a.816a2e",
+    "type": "change",
+    "z": "d51fa3e2.499938",
+    "name": "Put data to Flow storage",
+    "rules": [
+      {
+        "t": "set",
+        "p": "storage",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 750,
+    "y": 300,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "6d5eaa6.19d8554",
+    "type": "change",
+    "z": "d51fa3e2.499938",
+    "name": "Get data from Flow storage",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "storage",
+        "tot": "flow"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 320,
+    "y": 500,
+    "wires": [
+      [
+        "17bc2882.bdbcd7"
+      ]
+    ]
+  },
+  {
+    "id": "17bc2882.bdbcd7",
+    "type": "function",
+    "z": "d51fa3e2.499938",
+    "name": "Extract request params",
+    "func": "//simple error\nif (Math.random() < 0.5)  {\n    node.error(\"Error occurred\",msg);\n}\n\nconst {query, headers, body} = msg.req;\nconst {payload} = msg;\nmsg.payload = {query, payload, headers, body};\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 590,
+    "y": 500,
+    "wires": [
+      [
+        "ef501117.dcfd48"
+      ]
+    ]
+  },
+  {
+    "id": "44012056.355598",
+    "type": "http in",
+    "z": "d51fa3e2.499938",
+    "name": "",
+    "url": "/test",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 100,
+    "y": 560,
+    "wires": [
+      [
+        "6d5eaa6.19d8554"
+      ]
+    ]
+  },
+  {
+    "id": "b534a374.ea83d8",
+    "type": "catch",
+    "z": "d51fa3e2.499938",
+    "name": "Catch Flow errors",
+    "scope": null,
+    "uncaught": false,
+    "x": 830,
+    "y": 600,
+    "wires": [
+      [
+        "cbe84934.58991"
+      ]
+    ]
+  },
+  {
+    "id": "cbe84934.58991",
+    "type": "debug",
+    "z": "d51fa3e2.499938",
+    "name": "Log msg.error",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "error",
+    "targetType": "msg",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1040,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "8339066f.ec9858",
+    "type": "comment",
+    "z": "d51fa3e2.499938",
+    "name": "Notes \\n Given flow is designed to show the basic approaches with Node-RED. \\n First sequence does the HTTP reqest to 3rd-party service, parses the output, stores the received data to flow storage and writes the output to debug console. \\n Second sequence includes GET and POST endpoints that returns request object enriched with the data from the first sequence. Occasionally it throws the error that goes to debug console.",
+    "info": "",
+    "x": 640,
+    "y": 100,
+    "wires": []
+  }
+]
