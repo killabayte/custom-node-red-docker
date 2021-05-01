@@ -57,6 +57,8 @@ ARG BUILD_REF
 ARG NODE_RED_VERSION
 ARG ARCH
 ARG NODE_RED_CREDENTIAL_SECRET
+ARG GITHUB_CLIENT_ID
+ARG GITHUB_CLIENT_SECRET
 ARG TAG_SUFFIX=default
 
 LABEL org.label-schema.build-date=${BUILD_DATE} \
@@ -84,7 +86,10 @@ USER node-red
 ENV NODE_RED_VERSION=$NODE_RED_VERSION \
     NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules \
     FLOWS=flows.json \
-    NODE_RED_CREDENTIAL_SECRET=${NODE_RED_CREDENTIAL_SECRET}
+    NODE_RED_CREDENTIAL_SECRET=${NODE_RED_CREDENTIAL_SECRET} \
+    GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID \
+    GITHUB_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
+
 
 # ENV NODE_RED_ENABLE_SAFE_MODE=true    # Uncomment to enable safe start mode (flows not running)
 # ENV NODE_RED_ENABLE_PROJECTS=true     # Uncomment to enable projects option
