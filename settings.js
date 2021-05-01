@@ -132,8 +132,8 @@ module.exports = {
     //    }]
     //},
     adminAuth: require('node-red-auth-github')({
-        clientID: "03e6e03bb47a908150e8",
-        clientSecret: "a9542bce5ddcd5c6bd9d8007cf1b223fd33761b8",
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GIT_HUB_CLIENT_SECRET,
         baseURL: "https://127.0.0.1:1880/",
         users: [
             { username: "killabayte",permissions: ["*"]}
