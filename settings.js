@@ -123,15 +123,22 @@ module.exports = {
     // -----------------
     // To password protect the Node-RED editor and admin API, the following
     // property can be used. See http://nodered.org/docs/security.html for details.
-    adminAuth: {
-        type: "credentials",
-        users: [{
-            username: "admin",
-            password: process.env.NODE_RED_CREDENTIAL_SECRET,
-            permissions: "*",
-        }]
-    },
-
+    //adminAuth: {
+    //    type: "credentials",
+    //    users: [{
+    //        username: "admin",
+    //        password: process.env.NODE_RED_CREDENTIAL_SECRET,
+    //        permissions: "*",
+    //    }]
+    //},
+    adminAuth: require('node-red-auth-github')({
+        clientID: "03e6e03bb47a908150e8",
+        clientSecret: "a9542bce5ddcd5c6bd9d8007cf1b223fd33761b8",
+        baseURL: "https://127.0.0.1:1880/",
+        users: [
+            { username: "killabayte",permissions: ["*"]}
+        ]
+    }),
     // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
     // the static content (httpStatic), the following properties can be used.
     // The pass field is a bcrypt hash of the password.
@@ -146,8 +153,8 @@ module.exports = {
     // or a function that returns such an object:
     //// https object:
     https: {
-      key: require("fs").readFileSync('/data/node-key.pem'),
-      cert: require("fs").readFileSync('/data/node-cert.pem')
+     key: require("fs").readFileSync('/data/node-key.pem'),
+     cert: require("fs").readFileSync('/data/node-cert.pem')
     },
     ////https function:
     // https: function() {
