@@ -118,3 +118,10 @@ $ docker run -it -p 1880:1880 -e "FLOWS=flow_example.json" -e "NODE_RED_CREDENTI
 ```
 
 As the result, the node-red dashboard will start with the customized flow which is described in flow_example.json 
+
+
+## 8. **Run node-red instance behind GitHub Auth**
+
+```shell script
+$ docker run -it -p 1880:1880 -e "GITHUB_CLIENT_ID=YOUR_GITHUB_CLIENT_ID" -e "GITHUB_CLIENT_SECRET=YOUR_GITHUB_CLIENT_SECRET" --name myNRtest pilot:node-red-build
+```
