@@ -131,14 +131,39 @@ module.exports = {
     //        permissions: "*",
     //    }]
     //},
-    adminAuth: require('node-red-auth-github')({
-        clientID: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        baseURL: "https://127.0.0.1:1880/",
-        users: [
-            { username: "killabayte",permissions: ["*"]}
-        ]
-    }),
+    adminAuth: {
+        type: "strategy",
+        strategy: {
+            name: "auth0",
+            label: 'Sign in with Google',
+            icon: "fa-google",
+            strategy: require("passport-auth0").Strategy,
+            options: {
+                domain: process.env.AUTH0_DOMAIN,
+                clientID: process.env.AUTH0_CLIENT_ID,
+                clientSecret: process.env.AUTH0_CLIENT_SECRET,
+                callbackURL: process.env.AUTH0_CALLBACK_URI,
+                scope: "openid email profile",
+                state: false,
+                verify: function(token, refreshToken, profile, done) {
+                    profile.username = profile.username || profile.user_id;
+                    return done(null, profile);
+                }
+            },
+        },
+        users: function(username) {
+            return new Promise(function(resolve) {
+                // allow all
+                if (true) {
+                    var user = { username: username, permissions: ["*"] };
+                    resolve(user);
+                } else {
+                    resolve(null);
+                }
+            });
+        }
+    },
+
     // To password protect the node-defined HTTP endpoints (httpNodeRoot), or
     // the static content (httpStatic), the following properties can be used.
     // The pass field is a bcrypt hash of the password.
